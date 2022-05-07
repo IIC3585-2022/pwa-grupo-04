@@ -1,4 +1,3 @@
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDkP8LeGANbsy3z0OiQXln_THepQAtYMZ0",
   authDomain: "iic3585-g4-e4.firebaseapp.com",
@@ -19,9 +18,10 @@ const msgBtn = document.getElementById("msg-btn");
 const db = firebase.database();
 const msgRef = db.ref("/msgs"); 
 
-let name="";
+let userName = "";
+
 function init() {
-  name = prompt("Please enter your name");
+  userName = prompt("Por favor escribe tu nombre");
   msgRef.on('child_added', updateMsgs);
 }
 
@@ -32,22 +32,22 @@ function sendMessage(e){
   e.preventDefault();
   const text = msgInput.value;
 
-    if(!text.trim()) return alert('Please type a message'); //no msg submitted
-    const msg = {
-        name: name,
-        text: text
-    };
+  if (!text.trim()) return alert('Please type a message');
+  const msg = {
+      user: userName,
+      text
+  };
 
-    msgRef.push(msg);
-    msgInput.value = "";
+  msgRef.push(msg);
+  msgInput.value = "";
 }
 
-const updateMsgs = data => {
-  console.log('AASDADA')
-  const {dataName, text} = data.val();
+function updateMsgs(data) {
+  console.log(data.val());
+  const {user, text} = data.val();
 
-  const msg = `<li class="${dataName == name ? "msg my": "msg"}"><span class = "msg-span">
-    <i class = "name">${name}: </i>${text}
+  const msg = `<li class="${user == userName ? "msg my": "msg"}"><span class = "msg-span">
+    <i class = "name">${user}: </i>${text}
     </span>
   </li>`
 
