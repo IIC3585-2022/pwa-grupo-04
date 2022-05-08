@@ -1,0 +1,75 @@
+html {
+  height: 100vh;
+}
+body {
+  height: 100vh; 
+}  
+
+.chat{
+  margin:0;
+}  
+
+#messageForm{
+  background-color: rgb(145, 218, 178);
+  position: fixed;
+  bottom: 0;
+  padding: 15px;
+  width: 100%;
+}
+
+#msg-input{
+  padding: 10px;
+  border-radius: 20px;
+}
+
+#messages {
+  height: 85vh;
+}
+
+#msg-btn{
+  padding: 9px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: rgb(2, 112, 85);
+  font-size: large;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+#msg-btn:hover{
+  background-color: rgb(5, 153, 116);
+}
+
+.msg{
+  list-style-type: none;
+}
+
+.msg-span{
+  display: inline-block;
+  padding:10px;
+  border-radius: 20px;
+  font-size: large;
+  background-color: #fad7bf;
+  color: black;
+  margin: 15px 5px 0px 0px;
+  text-align: left;
+}
+
+.my span{
+  color: white;
+  background-color: rgb(221, 170, 122);
+  margin-right: 20px;
+}
+
+.my i{
+  display:none;
+}
+
+.center-logo{
+  width: 160px;
+  height: 160px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
