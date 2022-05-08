@@ -43,15 +43,15 @@ function sendMessage(e){
 }
 
 function updateMsgs(data) {
-  console.log(data.val());
   const {user, text} = data.val();
+  const ownMessage = user === userName;
 
-  const msg = `<li class="${user == userName ? "msg my": "msg"}"><span class = "msg-span">
-    <i class = "name">${user}: </i>${text}
+  const msg = `<li class="${ownMessage ? "msg text-right": "msg"}"><span class = "msg-span">
+    <strong class="${ownMessage ? "hidden" : ""}">${user}: </strong>${text}
     </span>
   </li>`
 
   msgScreen.innerHTML += msg;
 
-  document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight;
+  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 }
