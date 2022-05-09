@@ -24,30 +24,8 @@ let userName = '';
 let userToken = '';
 
 function init() {
-  userName = prompt("Por favor escribe tu nombre");
-  startMsgs()
-}
-
-const startMsgs = async ()=> {
-  const cache = await caches.open("my-cache");
-  try{
-    const data = await msgRef.limitToLast(10).get();
-    cache.put('/test.json', new Response(JSON.stringify(data.val())))
-    console.log("DATA:", data.val())
-    msgRef.on('child_added', updateMsgs);
-
-  }catch(err){
-    console.log("Error",err)
-    await fetch("/test.json", {cache: "force-cache"}).then(response=>response.json()).then(data=>{
-      
-      console.log(data)
-      Object.values(data).forEach(val => paintCachedMsg(val))
-    });
-    msgRef.on('child_added', updateMsgs);
-    
-
-  }
- 
+  userName = prompt('Por favor escribe tu nombre');
+  msgRef.on('child_added', updateMsgs);
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -116,24 +94,6 @@ function updateMsgs(data) {
   document.getElementById('messages').scrollTop =
     document.getElementById('messages').scrollHeight;
 }
-
-
-
-function paintCachedMsg(data) {
-  const {user, text} = data
-  const ownMessage = user === userName;
-
-  const msg = `<li class="${ownMessage ? "msg text-right": "msg"}"><span class = "msg-span">
-    <strong class="${ownMessage ? "hidden" : ""}">${user}: </strong>${text}
-    </span>
-  </li>`
-
-  msgScreen.innerHTML += msg;
-
-  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
-}
-
-const messaging = firebase.messaging();
 
 messaging
   .requestPermission()
