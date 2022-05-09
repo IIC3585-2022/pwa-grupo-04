@@ -10,7 +10,7 @@ body {
 }
 
 #messageForm {
-  background-color: rgb(145, 218, 178);
+  background-color: #91dab2;
   position: fixed;
   bottom: 0;
   padding: 15px;
@@ -91,10 +91,10 @@ body {
   max-height: 50px;
   border-radius: 10px;
   font-weight: 500;
-  text-overflow: initial;
-  font-size: larger;
   background-color: rgb(145, 218, 178);
-  max-width: 300px;
+  color: black;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */

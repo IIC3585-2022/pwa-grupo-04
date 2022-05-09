@@ -17,6 +17,8 @@ const msgBtn = document.getElementById('msg-btn');
 
 const db = firebase.database();
 const msgRef = db.ref('/msgs');
+const tokensRef = db.ref('/tokens');
+const messaging = firebase.messaging();
 
 let userName = '';
 
@@ -27,6 +29,28 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 msgForm.addEventListener('submit', sendMessage);
+
+function sendNotification(message) {
+  const payload = {
+    message,
+    title: 'Nuevo Mensaje',
+  };
+  const data = JSON.stringify(payload);
+  fetch('http://localhost:9000/message', {
+    method: 'POST',
+    body: data,
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      console.log(JSON.stringify(data));
+    });
+}
 
 function sendMessage(e) {
   e.preventDefault();
@@ -40,6 +64,8 @@ function sendMessage(e) {
 
   msgRef.push(msg);
   msgInput.value = '';
+
+  sendNotification(text);
 }
 
 function updateMsgs(data) {
@@ -59,8 +85,6 @@ function updateMsgs(data) {
     document.getElementById('messages').scrollHeight;
 }
 
-const messaging = firebase.messaging();
-
 messaging
   .requestPermission()
   .then(function () {
@@ -69,6 +93,8 @@ messaging
   })
   .then((token) => {
     console.log('Token: ', token);
+    const tokenInfo = { token };
+    tokensRef.push(tokenInfo);
   })
   .catch(function (err) {
     console.log('Unable to get permission to notify.', err);
@@ -80,9 +106,10 @@ messaging.onMessage((payload) => {
   const {
     notification: { body, title },
   } = payload;
-  snackbar.innerHTML += `<p>${title}: ${body}</p>`;
+  snackbar.textContent += `${title}: ${body}`;
   snackbar.className = 'show';
   setTimeout(() => {
     snackbar.className = snackbar.className.replace('show', '');
+    snackbar.textContent = '';
   }, 3000);
 });
