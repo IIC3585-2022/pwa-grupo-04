@@ -1,12 +1,12 @@
 {
-  "name": "PWA Tutorial",
-  "short_name": "PWA",
+  "name": "PWA Group 4",
+  "short_name": "Group 4",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#5900b3",
-  "theme_color": "black",
+  "background_color": "#91dab2",
+  "theme_color": "white",
   "scope": ".",
-  "description": "This is a PWA tutorial.",
+  "description": "Chat App by Group 4 - IIC3585",
   "icons": [
     {
       "src": "images/icon-512x512.png",
