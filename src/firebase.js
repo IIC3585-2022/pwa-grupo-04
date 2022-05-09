@@ -47,7 +47,7 @@ const startMsgs = async ()=> {
     
 
   }
- 
+
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -133,7 +133,6 @@ function paintCachedMsg(data) {
   document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 }
 
-const messaging = firebase.messaging();
 
 messaging
   .requestPermission()
