@@ -21,6 +21,7 @@ const tokensRef = db.ref('/tokens');
 const messaging = firebase.messaging();
 
 let userName = '';
+let userToken = '';
 
 function init() {
   userName = prompt('Por favor escribe tu nombre');
@@ -31,25 +32,34 @@ document.addEventListener('DOMContentLoaded', init);
 msgForm.addEventListener('submit', sendMessage);
 
 function sendNotification(message) {
-  const payload = {
-    message,
-    title: 'Nuevo Mensaje',
-  };
-  const data = JSON.stringify(payload);
-  fetch('http://localhost:9000/message', {
-    method: 'POST',
-    body: data,
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(function (res) {
-      return res.json();
+  tokensRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    const values = Object.values(data);
+    const tokens = values.map((x) => x.token);
+    const tokensWithoutMe = tokens.filter((x) => x !== userToken);
+    const distinctTokens = [...new Set(tokensWithoutMe)];
+
+    const payload = {
+      message,
+      title: 'Nuevo Mensaje',
+      tokens: distinctTokens,
+    };
+    const requestData = JSON.stringify(payload);
+    fetch('http://localhost:9000/message', {
+      method: 'POST',
+      body: requestData,
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
     })
-    .then(function (data) {
-      console.log(JSON.stringify(data));
-    });
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        console.log(JSON.stringify(data));
+      });
+  });
 }
 
 function sendMessage(e) {
@@ -94,7 +104,16 @@ messaging
   .then((token) => {
     console.log('Token: ', token);
     const tokenInfo = { token };
-    tokensRef.push(tokenInfo);
+    userToken = token;
+    tokensRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      const values = Object.values(data);
+      const tokens = values.map((x) => x.token);
+      const distinctTokens = [...new Set(tokens)];
+      if (!distinctTokens.includes(token)) {
+        tokensRef.push(tokenInfo);
+      }
+    });
   })
   .catch(function (err) {
     console.log('Unable to get permission to notify.', err);
@@ -102,7 +121,6 @@ messaging
 
 messaging.onMessage((payload) => {
   let snackbar = document.getElementById('snackbar');
-
   const {
     notification: { body, title },
   } = payload;
