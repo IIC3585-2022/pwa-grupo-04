@@ -2,14 +2,14 @@ html {
   height: 100vh;
 }
 body {
-  height: 100vh; 
-}  
+  height: 100vh;
+}
 
-.chat{
-  margin:0;
-}  
+.chat {
+  margin: 0;
+}
 
-#messageForm{
+#messageForm {
   background-color: rgb(145, 218, 178);
   position: fixed;
   bottom: 0;
@@ -17,7 +17,7 @@ body {
   width: 100%;
 }
 
-#msg-input{
+#msg-input {
   padding: 10px;
   border-radius: 20px;
 }
@@ -26,7 +26,7 @@ body {
   height: 85vh;
 }
 
-#msg-btn{
+#msg-btn {
   padding: 9px;
   border-radius: 20px;
   cursor: pointer;
@@ -37,17 +37,17 @@ body {
   border: none;
 }
 
-#msg-btn:hover{
+#msg-btn:hover {
   background-color: rgb(5, 153, 116);
 }
 
-.msg{
+.msg {
   list-style-type: none;
 }
 
-.msg-span{
+.msg-span {
   display: inline-block;
-  padding:10px;
+  padding: 10px;
   border-radius: 20px;
   font-size: large;
   background-color: #fad7bf;
@@ -56,20 +56,97 @@ body {
   text-align: left;
 }
 
-.my span{
+.my span {
   color: white;
   background-color: rgb(221, 170, 122);
   margin-right: 20px;
 }
 
-.my i{
-  display:none;
+.my i {
+  display: none;
 }
 
-.center-logo{
+.center-logo {
   width: 160px;
   height: 160px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 10px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  top: 30px; /* 30px from the top */
+  max-height: 50px;
+  border-radius: 10px;
+  font-weight: 500;
+  text-overflow: initial;
+  font-size: larger;
+  background-color: rgb(145, 218, 178);
+  max-width: 300px;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

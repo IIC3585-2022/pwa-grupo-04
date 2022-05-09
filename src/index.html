@@ -9,7 +9,10 @@
 				initial-scale=1"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="Simple chat progressive web application">
+    <meta
+      name="description"
+      content="Simple chat progressive web application"
+    />
 
     <!-- Title -->
     <title>Chat G4</title>
@@ -21,18 +24,23 @@
 
     <!-- Manifest File link -->
     <link rel="manifest" href="manifest.json" />
-    <link href="/dist/output.css" rel="stylesheet">
-    <link href="input.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link href="input.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <!-- Chat modificado de https://lo-victoria.com/build-firebase-realtime-chat-app -->
+    <div id="snackbar"></div>
     <div class="chat">
-      <ul id="messages" class="p-1 overflow-auto">
-      </ul>
+      <ul id="messages" class="p-1 overflow-auto"></ul>
       <form id="messageForm" autocomplete="off" class="flex space-between">
-        <input type="text" class="mr-2 grow" id="msg-input" placeholder="Escribe un mensaje">
+        <input
+          type="text"
+          class="mr-2 grow"
+          id="msg-input"
+          placeholder="Escribe un mensaje"
+        />
         <button id="msg-btn" class="w-max" type="submit">Enviar</button>
       </form>
     </div>
