@@ -55,3 +55,22 @@ function updateMsgs(data) {
 
   document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 }
+
+const messaging = firebase.messaging();
+
+messaging
+   .requestPermission()
+   .then(function () {
+     console.log("Notification permission granted.");
+     return messaging.getToken()
+   })
+   .then((token) => {
+     console.log('Token: ', token);
+   })
+   .catch(function (err) {
+   console.log("Unable to get permission to notify.", err);
+ });
+
+messaging.onMessage(payload => {
+  console.log(payload.notification)
+});
